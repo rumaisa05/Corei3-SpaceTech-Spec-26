@@ -1,0 +1,79 @@
+PASS initial direct-input state
+PASS single-path injection 1,0,0
+PASS single-path injection 0,1,0
+PASS single-path injection 0,0,1
+PASS single-path injection 15,0,0
+PASS split faults correct despite all words differing
+PASS wrong majority: Level 2 normal / Level 3 parity fallback
+PASS fault flags read through real HDL SPI
+PASS clear faults retains sticky safe mode
+PASS controlled reset clears safety and history
+PASS common odd-bit corruption caught by independent parity
+PASS even-bit parity blind spot explicitly exposed
+PASS no premature watchdog timeout
+PASS hang activates both hardware supervisors
+PASS SPI responsive during processor hang
+PASS elapsed counter saturates at timeout
+PASS heartbeat restart cannot clear safety
+PASS reset restores heartbeat and output
+PASS external integrity alarm activates both supervisors
+PASS integrity alarm safety is sticky
+PASS direct-input boundary 0
+PASS direct-input boundary 1
+PASS direct-input boundary 10
+PASS direct-input boundary 255
+PASS SPI register 0 correct
+PASS SPI register 4 correct
+PASS SPI register 8 correct
+PASS SPI register 12 correct
+PASS SPI register 16 correct
+PASS SPI register 20 correct
+PASS SPI register 24 correct
+PASS SPI register 32 correct
+PASS SPI register 36 correct
+PASS SPI register 40 correct
+PASS SPI register 255 correct
+PASS browser sessions are isolated
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"set","input":-1,"masks":[0,0,0]}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"set","input":256,"masks":[0,0,0]}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"set","input":1.5,"masks":[0,0,0]}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"set","input":10,"masks":[0,256,0]}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"advance","ticks":0}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"spi","address":256}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"heartbeat","enabled":"false"}
+Invalid action or parameter
+PASS invalid parameter rejected {"action":"unknown"}
+PASS cross-origin mutation rejected
+PASS local asset served /
+PASS local asset served /app.js
+PASS local asset served /style.css
+PASS local asset served /architecture
+PASS all C and HDL suites execute through dashboard API
+
+C model
+Checks: 7180 | Failures: 0
+Single-bit fault injections verified: 6144
+
+
+Level 2 HDL
+VCD info: dumpfile level2.vcd opened for output.
+Checks: 6932 | Failures: 0
+PASS: Level 2 TMR + independent watchdog + safe mode
+/workspace/scratch/f9a2b47fbfa9/final_review/project/sim/tb_supervisor.v:109: $finish called at 1180000 (1ps)
+
+
+Level 3 SPI HDL
+VCD info: dumpfile level3.vcd opened for output.
+Level 3 checks: 31 | Failures: 0
+PASS: SPI telemetry + fault reporting + supervisor
+/workspace/scratch/f9a2b47fbfa9/final_review/project/sim/tb_level3.v:116: $finish called at 217736000 (1ps)
+
+
+INTEGRATION PASS: 50 checks, zero failures.

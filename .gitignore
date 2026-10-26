@@ -1,0 +1,9 @@
+build/
+node_modules/
+.vscode/
+*.vcd
+*.vvp
+*.exe
+.env
+.env.*
+.DS_Store

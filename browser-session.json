@@ -1,0 +1,1439 @@
+{
+  "project": "Corei3 / SPEC26",
+  "exportedAt": "2026-10-26T13:02:40.702Z",
+  "engines": "Compiled C + Icarus Verilog RTL + bit-serial SPI",
+  "notes": "C correctness is test-oracle verified. Parity uses a trusted independent reference. Read sequence timestamps identify snapshots. Safe state is sticky until reset.",
+  "verification": {
+    "passed": true,
+    "time": "2026-10-26T13:01:51.176Z",
+    "results": [
+      {
+        "name": "C model",
+        "output": "Checks: 7180 | Failures: 0\nSingle-bit fault injections verified: 6144\n"
+      },
+      {
+        "name": "Level 2 HDL",
+        "output": "VCD info: dumpfile level2.vcd opened for output.\nChecks: 6932 | Failures: 0\nPASS: Level 2 TMR + independent watchdog + safe mode\n/site/sim/tb_supervisor.v:109: $finish called at 1180000 (1ps)\n"
+      },
+      {
+        "name": "Level 3 SPI HDL",
+        "output": "VCD info: dumpfile level3.vcd opened for output.\nLevel 3 checks: 31 | Failures: 0\nPASS: SPI telemetry + fault reporting + supervisor\n/site/sim/tb_level3.v:116: $finish called at 217736000 (1ps)\n"
+      }
+    ]
+  },
+  "experiments": [
+    {
+      "label": "New mission session · reset / input 10",
+      "action": {
+        "action": "reset",
+        "input": 10
+      },
+      "time": "2026-10-26T13:00:00.591Z",
+      "state": {
+        "sequence": 1,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 6,
+        "elapsed3": 6,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": -1,
+        "spiValue": 0,
+        "timePs": 186000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · healthy mission",
+      "action": {
+        "action": "reset",
+        "input": 10
+      },
+      "time": "2026-10-26T13:00:17.240Z",
+      "state": {
+        "sequence": 2,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 6,
+        "elapsed3": 6,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": -1,
+        "spiValue": 0,
+        "timePs": 276000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · single-bit upset",
+      "action": {
+        "action": "set",
+        "input": 10,
+        "masks": [
+          1,
+          0,
+          0
+        ]
+      },
+      "time": "2026-10-26T13:00:21.313Z",
+      "state": {
+        "sequence": 3,
+        "input": 10,
+        "paths": [
+          11,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 3,
+        "elapsed3": 3,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 1,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 1,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 4,
+        "spiAddress": -1,
+        "spiValue": 0,
+        "timePs": 316000,
+        "c": {
+          "paths": [
+            11,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 1,
+          "correct": 1,
+          "corrected_bits": 1
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · wrong majority / parity fallback",
+      "action": {
+        "action": "set",
+        "input": 10,
+        "masks": [
+          1,
+          1,
+          0
+        ]
+      },
+      "time": "2026-10-26T13:00:31.642Z",
+      "state": {
+        "sequence": 4,
+        "input": 10,
+        "paths": [
+          11,
+          11,
+          10
+        ],
+        "voted": 11,
+        "l2Output": 11,
+        "l3Output": 0,
+        "l2Safe": 0,
+        "l3Safe": 1,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 1,
+        "elapsed": 2,
+        "elapsed3": 2,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 1,
+        "parityFault": 1,
+        "ambiguous": 0,
+        "mismatchEvents": 1,
+        "parityEvents": 1,
+        "ambiguousEvents": 0,
+        "history": 22,
+        "spiAddress": -1,
+        "spiValue": 0,
+        "timePs": 356000,
+        "c": {
+          "paths": [
+            11,
+            11,
+            10
+          ],
+          "expected": 10,
+          "voted": 11,
+          "mismatch": 1,
+          "correct": 0,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · SPI fault-status read",
+      "action": {
+        "action": "spi",
+        "address": 4
+      },
+      "time": "2026-10-26T13:00:38.863Z",
+      "state": {
+        "sequence": 5,
+        "input": 10,
+        "paths": [
+          11,
+          11,
+          10
+        ],
+        "voted": 11,
+        "l2Output": 11,
+        "l3Output": 0,
+        "l2Safe": 0,
+        "l3Safe": 1,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 1,
+        "elapsed": 2,
+        "elapsed3": 2,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 1,
+        "parityFault": 1,
+        "ambiguous": 0,
+        "mismatchEvents": 1,
+        "parityEvents": 1,
+        "ambiguousEvents": 0,
+        "history": 22,
+        "spiAddress": 4,
+        "spiValue": 45,
+        "timePs": 10156000,
+        "c": {
+          "paths": [
+            11,
+            11,
+            10
+          ],
+          "expected": 10,
+          "voted": 11,
+          "mismatch": 1,
+          "correct": 0,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · reset before hang",
+      "action": {
+        "action": "reset",
+        "input": 10
+      },
+      "time": "2026-10-26T13:00:47.695Z",
+      "state": {
+        "sequence": 6,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 6,
+        "elapsed3": 6,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 4,
+        "spiValue": 45,
+        "timePs": 10246000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · processor stops heartbeat",
+      "action": {
+        "action": "heartbeat",
+        "enabled": false
+      },
+      "time": "2026-10-26T13:00:47.730Z",
+      "state": {
+        "sequence": 7,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 3,
+        "elapsed3": 3,
+        "heartbeat": 1,
+        "heartbeatEnabled": 0,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 4,
+        "spiValue": 45,
+        "timePs": 10286000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · watchdog timeout",
+      "action": {
+        "action": "advance",
+        "ticks": 64
+      },
+      "time": "2026-10-26T13:00:47.758Z",
+      "state": {
+        "sequence": 8,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 0,
+        "l3Output": 0,
+        "l2Safe": 1,
+        "l3Safe": 1,
+        "timeout": 1,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 64,
+        "elapsed3": 64,
+        "heartbeat": 1,
+        "heartbeatEnabled": 0,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 1,
+        "spiAddress": 4,
+        "spiValue": 45,
+        "timePs": 10926000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · read telemetry during processor hang",
+      "action": {
+        "action": "spi",
+        "address": 4
+      },
+      "time": "2026-10-26T13:00:56.942Z",
+      "state": {
+        "sequence": 9,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 0,
+        "l3Output": 0,
+        "l2Safe": 1,
+        "l3Safe": 1,
+        "timeout": 1,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 64,
+        "elapsed3": 64,
+        "heartbeat": 1,
+        "heartbeatEnabled": 0,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 1,
+        "spiAddress": 4,
+        "spiValue": 3,
+        "timePs": 20726000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · heartbeat resumes / latch retained",
+      "action": {
+        "action": "heartbeat",
+        "enabled": true
+      },
+      "time": "2026-10-26T13:01:12.583Z",
+      "state": {
+        "sequence": 10,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 0,
+        "l3Output": 0,
+        "l2Safe": 1,
+        "l3Safe": 1,
+        "timeout": 1,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 64,
+        "elapsed3": 64,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 1,
+        "spiAddress": 4,
+        "spiValue": 3,
+        "timePs": 20766000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · reset before blind-spot test",
+      "action": {
+        "action": "reset",
+        "input": 10
+      },
+      "time": "2026-10-26T13:01:22.712Z",
+      "state": {
+        "sequence": 11,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 6,
+        "elapsed3": 6,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 4,
+        "spiValue": 3,
+        "timePs": 20856000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · even-bit parity blind spot",
+      "action": {
+        "action": "set",
+        "input": 10,
+        "masks": [
+          3,
+          3,
+          0
+        ]
+      },
+      "time": "2026-10-26T13:01:22.779Z",
+      "state": {
+        "sequence": 12,
+        "input": 10,
+        "paths": [
+          9,
+          9,
+          10
+        ],
+        "voted": 9,
+        "l2Output": 9,
+        "l3Output": 9,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 3,
+        "elapsed3": 3,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 1,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 1,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 4,
+        "spiAddress": 4,
+        "spiValue": 3,
+        "timePs": 20896000,
+        "c": {
+          "paths": [
+            9,
+            9,
+            10
+          ],
+          "expected": 10,
+          "voted": 9,
+          "mismatch": 1,
+          "correct": 0,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Demo · controlled recovery complete",
+      "action": {
+        "action": "reset",
+        "input": 10
+      },
+      "time": "2026-10-26T13:01:28.954Z",
+      "state": {
+        "sequence": 13,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 6,
+        "elapsed3": 6,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 4,
+        "spiValue": 3,
+        "timePs": 20986000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read IDENTIFICATION",
+      "action": {
+        "action": "spi",
+        "address": 0
+      },
+      "time": "2026-10-26T13:01:43.809Z",
+      "state": {
+        "sequence": 14,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 0,
+        "spiValue": 1127434547,
+        "timePs": 30786000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read STATUS",
+      "action": {
+        "action": "spi",
+        "address": 4
+      },
+      "time": "2026-10-26T13:01:43.863Z",
+      "state": {
+        "sequence": 15,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 4,
+        "spiValue": 0,
+        "timePs": 40586000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read MISMATCH_EVENTS",
+      "action": {
+        "action": "spi",
+        "address": 8
+      },
+      "time": "2026-10-26T13:01:43.929Z",
+      "state": {
+        "sequence": 16,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 8,
+        "spiValue": 0,
+        "timePs": 50386000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read PARITY_EVENTS",
+      "action": {
+        "action": "spi",
+        "address": 12
+      },
+      "time": "2026-10-26T13:01:43.982Z",
+      "state": {
+        "sequence": 17,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 12,
+        "spiValue": 0,
+        "timePs": 60186000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read AMBIGUOUS_EVENTS",
+      "action": {
+        "action": "spi",
+        "address": 16
+      },
+      "time": "2026-10-26T13:01:44.040Z",
+      "state": {
+        "sequence": 18,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 16,
+        "spiValue": 0,
+        "timePs": 69986000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read PATH_SNAPSHOT",
+      "action": {
+        "action": "spi",
+        "address": 20
+      },
+      "time": "2026-10-26T13:01:44.101Z",
+      "state": {
+        "sequence": 19,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 20,
+        "spiValue": 168430090,
+        "timePs": 79786000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read PROTECTED_OUTPUT",
+      "action": {
+        "action": "spi",
+        "address": 24
+      },
+      "time": "2026-10-26T13:01:44.175Z",
+      "state": {
+        "sequence": 20,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 24,
+        "spiValue": 10,
+        "timePs": 89586000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read ELAPSED",
+      "action": {
+        "action": "spi",
+        "address": 28
+      },
+      "time": "2026-10-26T13:01:44.249Z",
+      "state": {
+        "sequence": 21,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 28,
+        "spiValue": 2,
+        "timePs": 99386000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read HISTORY",
+      "action": {
+        "action": "spi",
+        "address": 32
+      },
+      "time": "2026-10-26T13:01:44.338Z",
+      "state": {
+        "sequence": 22,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 32,
+        "spiValue": 0,
+        "timePs": 109186000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read TIMEOUT",
+      "action": {
+        "action": "spi",
+        "address": 36
+      },
+      "time": "2026-10-26T13:01:44.430Z",
+      "state": {
+        "sequence": 23,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 36,
+        "spiValue": 64,
+        "timePs": 118986000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "SPI read VERSION",
+      "action": {
+        "action": "spi",
+        "address": 40
+      },
+      "time": "2026-10-26T13:01:44.511Z",
+      "state": {
+        "sequence": 24,
+        "input": 10,
+        "paths": [
+          10,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 4,
+        "elapsed3": 4,
+        "heartbeat": 1,
+        "heartbeatEnabled": 1,
+        "mismatch": 0,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 0,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 0,
+        "spiAddress": 40,
+        "spiValue": 65536,
+        "timePs": 128786000,
+        "c": {
+          "paths": [
+            10,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 0,
+          "correct": 1,
+          "corrected_bits": 0
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    },
+    {
+      "label": "Toggle path A · bit 0",
+      "action": {
+        "action": "set",
+        "input": 10,
+        "masks": [
+          1,
+          0,
+          0
+        ]
+      },
+      "time": "2026-10-26T13:02:15.916Z",
+      "state": {
+        "sequence": 25,
+        "input": 10,
+        "paths": [
+          11,
+          10,
+          10
+        ],
+        "voted": 10,
+        "l2Output": 10,
+        "l3Output": 10,
+        "l2Safe": 0,
+        "l3Safe": 0,
+        "timeout": 0,
+        "integrity2": 0,
+        "integrity3": 0,
+        "elapsed": 3,
+        "elapsed3": 3,
+        "heartbeat": 0,
+        "heartbeatEnabled": 1,
+        "mismatch": 1,
+        "parityFault": 0,
+        "ambiguous": 0,
+        "mismatchEvents": 1,
+        "parityEvents": 0,
+        "ambiguousEvents": 0,
+        "history": 4,
+        "spiAddress": 40,
+        "spiValue": 65536,
+        "timePs": 128826000,
+        "c": {
+          "paths": [
+            11,
+            10,
+            10
+          ],
+          "expected": 10,
+          "voted": 10,
+          "mismatch": 1,
+          "correct": 1,
+          "corrected_bits": 1
+        },
+        "engine": "compiled C + Icarus Verilog",
+        "crossCheck": true
+      }
+    }
+  ],
+  "spiReads": [
+    {
+      "address": 0,
+      "value": 1127434547,
+      "sequence": 14,
+      "timePs": 30786000
+    },
+    {
+      "address": 4,
+      "value": 0,
+      "sequence": 15,
+      "timePs": 40586000
+    },
+    {
+      "address": 8,
+      "value": 0,
+      "sequence": 16,
+      "timePs": 50386000
+    },
+    {
+      "address": 12,
+      "value": 0,
+      "sequence": 17,
+      "timePs": 60186000
+    },
+    {
+      "address": 16,
+      "value": 0,
+      "sequence": 18,
+      "timePs": 69986000
+    },
+    {
+      "address": 20,
+      "value": 168430090,
+      "sequence": 19,
+      "timePs": 79786000
+    },
+    {
+      "address": 24,
+      "value": 10,
+      "sequence": 20,
+      "timePs": 89586000
+    },
+    {
+      "address": 28,
+      "value": 2,
+      "sequence": 21,
+      "timePs": 99386000
+    },
+    {
+      "address": 32,
+      "value": 0,
+      "sequence": 22,
+      "timePs": 109186000
+    },
+    {
+      "address": 36,
+      "value": 64,
+      "sequence": 23,
+      "timePs": 118986000
+    },
+    {
+      "address": 40,
+      "value": 65536,
+      "sequence": 24,
+      "timePs": 128786000
+    }
+  ]
+}

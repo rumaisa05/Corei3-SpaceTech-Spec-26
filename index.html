@@ -1,0 +1,629 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7fb">
+  <meta name="description" content="Corei3 — Fault-tolerant TMR, watchdog supervision and SPI telemetry simulation.">
+  <title>Corei3 · Orbital Reliability Console</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <a href="#overview" class="logo">
+      <img
+        src="https://res.cloudinary.com/wxucoyxn/image/upload/COREi3.png"
+        alt="COREi3 logo"
+        class="corei3Logo"
+      >
+      <span>Corei3</span>
+      <span class="logoCaption">ORBITAL RELIABILITY SYSTEMS</span>
+    </a>
+
+    <div class="navlabel">MISSION WORKSPACE</div>
+
+    <nav>
+      <a href="#overview"><span>◉</span> Mission overview <small>01</small></a>
+      <a href="#faultlab"><span>⌘</span> Fault injection lab <small>02</small></a>
+      <a href="#watchdog"><span>⌁</span> Watchdog supervisor <small>03</small></a>
+      <a href="#telemetry"><span>▤</span> SPI telemetry <small>04</small></a>
+      <a href="#verification"><span>✓</span> Verification <small>05</small></a>
+    </nav>
+  </aside>
+
+  <div class="menuBackdrop" id="menuBackdrop" hidden></div>
+
+  <div class="shell">
+    <header class="topbar glassNav">
+      <a href="#overview" class="navBrand">
+        <img
+          src="https://res.cloudinary.com/wxucoyxn/image/upload/COREi3.png"
+          alt="COREi3 logo"
+          class="corei3Logo"
+        >
+        <span>Corei3</span>
+      </a>
+
+      <nav class="topNavLinks" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#faultlab">Fault Lab</a>
+        <a href="#watchdog">Watchdog</a>
+        <a href="#telemetry">Telemetry</a>
+        <a href="#verification">Verification</a>
+      </nav>
+
+      <div class="topright">
+        <span id="connection" class="connection">● CONNECTING</span>
+        <a class="navCta" href="#faultlab">Launch Demo <span>↗</span></a>
+        <button id="fullscreen" class="iconbutton" type="button" title="Toggle fullscreen" aria-label="Toggle fullscreen">⛶</button>
+        <button id="menuToggle" class="iconbutton menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ==========================================
+           HERO SECTION
+      =========================================== -->
+      <section id="overview" class="hero heroEditorial">
+
+        <div class="heroParticles" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="heroCopy">
+          <h1>
+            Reliability,<br>
+            <em>Beyond Failure.</em>
+          </h1>
+
+          <p class="heroSubtitle">
+            Advanced satellite systems for a more connected and resilient tomorrow.
+          </p>
+
+          <div class="heroActions">
+            <button id="guide" class="primary" type="button">
+              Start the mission <span>↗</span>
+            </button>
+
+            <a class="textlink" href="#watchdog">
+              See how it works <span>↓</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="heroGlobe" aria-hidden="true">
+          <div class="globeHalo"></div>
+          <div class="globeOrb"></div>
+          <div class="globeArc globeArcOne"></div>
+          <div class="globeArc globeArcTwo"></div>
+          <div class="globeArc globeArcThree"></div>
+          <div class="globeGlow"></div>
+        </div>
+
+      </section>
+
+      <!-- SECTION BREAK: HERO → DASHBOARD -->
+      <div class="heroTransition" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           DASHBOARD SUMMARY
+      =========================================== -->
+      <section class="summary">
+
+        <article>
+          <div class="metricLabel">
+            VOTER OUTPUT <span>01 / TMR</span>
+          </div>
+          <strong id="metricVoted">—</strong>
+          <p id="metricVotedNote">
+            Awaiting C + HDL cross-check
+          </p>
+        </article>
+
+        <article>
+          <div class="metricLabel">
+            PROTECTED OUTPUT <span>03 / SYSTEM</span>
+          </div>
+          <strong id="metricOutput">—</strong>
+          <p id="metricOutputNote">
+            Supervisor-controlled output
+          </p>
+        </article>
+
+        <article>
+          <div class="metricLabel">
+            MISSION STATUS <span id="statusDot">●</span>
+          </div>
+          <strong id="metricStatus" class="statusText">CONNECTING</strong>
+          <p id="metricStatusNote">
+            Initializing simulation
+          </p>
+        </article>
+
+        <article>
+          <div class="metricLabel">
+            C ↔ HDL CHECK <span>LIVE</span>
+          </div>
+          <strong id="metricCross" class="statusText">—</strong>
+          <p>
+            Independent C / Verilog comparison
+          </p>
+        </article>
+
+      </section>
+
+      <!-- GUIDED DEMO: HIDDEN UNTIL ACTIVATED -->
+      <section id="guidePanel" class="guidePanel" hidden>
+        <div class="stepNumber" id="stepNumber">01</div>
+
+        <div>
+          <div class="eyebrow" id="stepLabel"></div>
+          <h2 id="stepTitle"></h2>
+          <p id="stepText"></p>
+        </div>
+
+        <button id="next" class="primary">Next step →</button>
+        <button id="exitGuide" class="iconbutton" aria-label="Exit guided demo">×</button>
+      </section>
+
+      <div id="error" class="error" role="alert" hidden></div>
+
+      <!-- SECTION BREAK: DASHBOARD → FAULT LAB -->
+      <div class="heroTransition sectionBreak" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           FAULT INJECTION LAB
+      =========================================== -->
+      <section id="faultlab">
+        <div class="sectionTitle">
+          <div>
+            <p class="eyebrow">01 / TRIPLE MODULAR REDUNDANCY</p>
+            <h2>Fault injection lab<span class="headingDot">.</span></h2>
+          </div>
+          <span class="labelPill">C MODEL + HDL VOTER</span>
+        </div>
+
+        <div class="labgrid">
+          <div class="panel pathsPanel">
+            <div class="panelToolbar">
+              <label>
+                DECIMAL INPUT
+                <input id="input" type="number" min="0" max="255" step="1" value="10">
+              </label>
+
+              <span class="formula">f(x) = x / 8-BIT DATA</span>
+              <button id="clearFaults" class="subtle">Clear faults ↺</button>
+            </div>
+
+            <div class="bitLegend">
+              <span>REDUNDANT PATHS</span>
+              <span>CLICK ANY BIT TO INJECT / REMOVE A FAULT</span>
+            </div>
+
+            <div id="paths" class="paths"></div>
+
+            <div class="legend">
+              <span><i class="key healthy"></i> Nominal bit</span>
+              <span><i class="key flipped"></i> Injected bit flip</span>
+              <span>MSB 7 → LSB 0</span>
+            </div>
+          </div>
+
+          <div class="panel voterPanel">
+            <p class="eyebrow">BITWISE MAJORITY DECISION</p>
+            <div class="voterSymbol">2<span>/</span>3</div>
+            <div id="voteBits" class="outputBits">--------</div>
+            <div id="voteStatus" class="labelPill">AWAITING DATA</div>
+
+            <div class="decisionRows">
+              <div><span>Expected · test oracle</span><strong id="expected">—</strong></div>
+              <div><span>Path disagreement</span><strong id="mismatch">—</strong></div>
+              <div><span>Raw voted result</span><strong id="rawCorrect">—</strong></div>
+            </div>
+
+            <p class="equation">Y = (A &amp; B) | (A &amp; C) | (B &amp; C)</p>
+          </div>
+        </div>
+
+        <div class="presetBar">
+          <span class="eyebrow">QUICK SCENARIOS</span>
+          <div id="presets"></div>
+        </div>
+
+        <div class="insight" id="insight" aria-live="polite">
+          Initializing the simulation…
+        </div>
+
+        <div class="sessionStats">
+          <span><strong id="correctedEvents">0</strong> ORACLE-VERIFIED CORRECTED EVENTS</span>
+          <span><strong id="correctedBits">0</strong> CORRECTED BIT INSTANCES</span>
+          <span>Counts fault-setting experiments; excludes SPI reads.</span>
+        </div>
+      </section>
+
+      <!-- SECTION BREAK: FAULT LAB → WATCHDOG -->
+      <div class="heroTransition sectionBreak" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WATCHDOG SUPERVISOR
+      =========================================== -->
+      <section id="watchdog">
+        <div class="sectionTitle">
+          <div>
+            <p class="eyebrow">02 / INDEPENDENT SUPERVISION</p>
+            <h2>
+              When progress stops,<br class="mobileBreak">
+              protection takes over<span class="headingDot">.</span>
+            </h2>
+          </div>
+          <span class="labelPill">CLOCKED VERILOG SIMULATION</span>
+        </div>
+
+        <div class="watchgrid">
+          <div class="panel">
+            <div class="panelHeading">
+              <h3>Watchdog timeline</h3>
+              <span class="liveLabel" id="hbLabel">● HEARTBEAT ENABLED</span>
+            </div>
+
+            <div class="timerRow">
+              <strong id="elapsed">—</strong>
+              <span>/ 64<br>WATCHDOG TICKS</span>
+              <div id="timeoutBadge" class="labelPill">ARMED</div>
+            </div>
+
+            <div class="progress">
+              <div id="progressBar"></div>
+              <span class="threshold"></span>
+            </div>
+
+            <div class="progressLegend">
+              <span>0 · RESET</span>
+              <span>64 · TIMEOUT</span>
+            </div>
+
+            <div class="controls">
+              <button id="heartbeat">Stop heartbeat</button>
+              <button id="tick8">Advance 8 ticks</button>
+              <button id="tick64" class="dangerOutline">Advance 64 ticks</button>
+            </div>
+
+            <p class="muted small">
+              Simulation advances on actions. SPI reads also advance watchdog time.
+              The independent watchdog clock keeps running when heartbeats stop.
+            </p>
+          </div>
+
+          <div class="panel safetyPanel">
+            <div class="panelHeading">
+              <h3>Safety supervisor</h3>
+              <span class="eyebrow">LATCHED UNTIL RESET</span>
+            </div>
+
+            <div class="safetyRow">
+              <span>Level 2 · Watchdog + external alarm</span>
+              <strong id="l2Status">—</strong>
+            </div>
+
+            <div class="safetyRow">
+              <span>Level 3 · Adds trusted-reference parity</span>
+              <strong id="l3Status">—</strong>
+            </div>
+
+            <div class="safetyRow">
+              <span>Voted parity / expected parity</span>
+              <strong id="parity">—</strong>
+            </div>
+
+            <div class="controls">
+              <button id="integrity">Inject integrity alarm</button>
+              <button id="reset" class="primary">Controlled reset ↺</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="signalStrip">
+          <span>SIGNAL PATH</span>
+          <b>A / B / C</b><i>→</i>
+          <b>Majority voter</b><i>→</i>
+          <b>Safety mux</b><i>→</i>
+          <b id="signalOutput">Protected output</b>
+          <small>↑ WATCHDOG + INTEGRITY CHECK</small>
+        </div>
+      </section>
+
+      <!-- SECTION BREAK: WATCHDOG → TELEMETRY -->
+      <div class="heroTransition sectionBreak" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SPI TELEMETRY
+      =========================================== -->
+      <section id="telemetry">
+        <div class="sectionTitle">
+          <div>
+            <p class="eyebrow">03 / FLIGHT-MINDED TELEMETRY</p>
+            <h2>Every event. Accounted for<span class="headingDot">.</span></h2>
+          </div>
+          <span class="labelPill">SPI MODE 0 / MSB FIRST</span>
+        </div>
+
+        <div class="telemetrygrid">
+          <div class="panel registerPanel">
+            <div class="panelHeading">
+              <h3>Register explorer</h3>
+              <button id="readAll" class="subtle">Read all via SPI ↗</button>
+            </div>
+
+            <p class="muted small">
+              8 address bits → 32 response bits. Values below come from simulated serial reads.
+              Each register snapshots independently.
+            </p>
+
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ADDR</th>
+                    <th>REGISTER</th>
+                    <th>SPI VALUE</th>
+                    <th>READ</th>
+                  </tr>
+                </thead>
+                <tbody id="registers"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="telemetrySide">
+            <div class="panel">
+              <div class="panelHeading">
+                <h3>Hardware event counters</h3>
+                <span class="eyebrow">RISING EPISODES</span>
+              </div>
+
+              <div class="counterRow">
+                <strong id="mismatchEvents">0</strong>
+                <span>Disagreement episodes</span>
+              </div>
+
+              <div class="counterRow">
+                <strong id="parityEvents">0</strong>
+                <span>Parity fault episodes</span>
+              </div>
+
+              <div class="counterRow">
+                <strong id="ambiguousEvents">0</strong>
+                <span>No-word-majority episodes</span>
+              </div>
+
+              <p class="muted small">
+                Direct RTL signals above; read the SPI registers to verify them.
+                These count fault episodes, not confirmed corrections.
+              </p>
+            </div>
+
+            <div class="panel spiFrame">
+              <p class="eyebrow">LAST SPI TRANSACTION</p>
+              <div>
+                <span id="spiAddress">0x—</span>
+                <b>→</b>
+                <strong id="spiValue">NOT READ</strong>
+              </div>
+              <p id="spiDecode" class="muted small">
+                Select a register to clock a real HDL transaction.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION BREAK: TELEMETRY → VERIFICATION -->
+      <div class="heroTransition sectionBreak" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           VERIFICATION
+      =========================================== -->
+      <section id="verification">
+        <div class="sectionTitle">
+          <div>
+            <p class="eyebrow">04 / REPRODUCIBLE EVIDENCE</p>
+            <h2>Trust the checks<span class="headingDot">.</span></h2>
+          </div>
+
+          <button id="verify" class="primary">Run all verification suites ↗</button>
+        </div>
+
+        <div class="verificationCards">
+          <div class="panel">
+            <span class="eyebrow">C / LEVEL 1</span>
+            <h3>Software model</h3>
+            <strong id="testC">NOT RUN</strong>
+          </div>
+
+          <div class="panel">
+            <span class="eyebrow">VERILOG / LEVEL 2</span>
+            <h3>Watchdog &amp; fallback</h3>
+            <strong id="testL2">NOT RUN</strong>
+          </div>
+
+          <div class="panel">
+            <span class="eyebrow">SPI + VERILOG / LEVEL 3</span>
+            <h3>Telemetry &amp; integrity</h3>
+            <strong id="testL3">NOT RUN</strong>
+          </div>
+        </div>
+
+        <details class="panel testDetails">
+          <summary>View verification output</summary>
+          <pre id="testOutput">Run verification to capture evidence from the installed C compiler and HDL simulator.</pre>
+        </details>
+      </section>
+
+      <!-- SECTION BREAK: VERIFICATION → EVENT LOG -->
+      <div class="heroTransition sectionBreak" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           MISSION EVENT LOG
+      =========================================== -->
+      <section class="panel eventPanel">
+        <div class="panelHeading">
+          <div>
+            <p class="eyebrow">SESSION / EVIDENCE STREAM</p>
+            <h3>Mission event log</h3>
+          </div>
+
+          <div class="controls">
+            <button id="newSession" class="subtle">New session</button>
+            <button id="export">Export evidence ↓</button>
+          </div>
+        </div>
+
+        <div id="eventLog" class="eventLog" aria-live="polite"></div>
+      </section>
+
+      <!-- SECTION BREAK: EVENT LOG → FOOTER -->
+      <div class="heroTransition" aria-hidden="true">
+        <div class="transitionGlow"></div>
+        <div class="transitionLine"></div>
+        <div class="transitionParticles">
+          <span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           FOOTER
+      =========================================== -->
+      <footer class="siteFooter">
+        <div class="footerTop">
+          <a href="#overview" class="footerBrand">
+            <img
+              src="https://res.cloudinary.com/wxucoyxn/image/upload/COREi3.png"
+              alt="Corei3 logo"
+              class="corei3Logo"
+            >
+            <span>
+              <strong>Corei3</strong>
+              <small>ORBITAL RELIABILITY SYSTEMS</small>
+            </span>
+          </a>
+
+          <div class="footerStatement">
+            <h2>
+              When one path fails,<br>
+              <em>the mission continues.</em>
+            </h2>
+          </div>
+
+          <a class="footerBack" href="#overview">
+            BACK TO MISSION CONTROL ↑
+          </a>
+        </div>
+
+        <div class="footerBottom">
+          <span>© 2026 COREi3 · SPEC'26</span>
+          <span>NED UNIVERSITY OF ENGINEERING &amp; TECHNOLOGY</span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="busyIndicator" id="busyIndicator" hidden>
+    <span></span>
+    <span id="busyText">Running C + HDL…</span>
+  </div>
+
+  <script>
+    (() => {
+      const toggle = document.getElementById('menuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('menuBackdrop');
+
+      function setMenuOpen(open) {
+        sidebar.classList.toggle('menu-open', open);
+        backdrop.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute(
+          'aria-label',
+          open ? 'Close navigation menu' : 'Open navigation menu'
+        );
+        document.body.classList.toggle('drawer-open', open);
+      }
+
+      toggle.addEventListener('click', () => {
+        setMenuOpen(!sidebar.classList.contains('menu-open'));
+      });
+
+      backdrop.addEventListener('click', () => setMenuOpen(false));
+
+      sidebar.querySelectorAll('nav a, .logo').forEach(link => {
+        link.addEventListener('click', () => setMenuOpen(false));
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') setMenuOpen(false);
+      });
+    })();
+  </script>
+
+  <script src="/app.js"></script>
+</body>
+</html>

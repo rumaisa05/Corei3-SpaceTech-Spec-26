@@ -1,0 +1,19 @@
+Browser verification: Chrome, desktop viewport, local managed preview.
+- Overview rendered with active C + HDL connection and nominal outputs.
+- All nine guided demo steps exercised.
+- Single-bit fault: A=11, B=C=10; voted=10; FAULT MASKED.
+- Wrong majority: Level 2 output=11; Level 3 safe output=0.
+- SPI STATUS wrong majority=0x0000002D.
+- Hang: both safe outputs=0; elapsed=64.
+- SPI STATUS during hang=0x00000003.
+- Resuming heartbeat retained safe mode.
+- Even-bit blind spot displayed UNDETECTED ERROR; output=9.
+- Controlled reset restored NOMINAL; output=10.
+- All eleven registers read through UI; snapshots and addresses verified.
+- All verification cards showed 7180 / 6932 / 31 CHECKS PASS.
+- Manual path A bit 0 toggle exercised.
+- Level 1 oracle-verified corrected event and bit counters each incremented to 1.
+- Browser evidence export downloaded and parsed: 25 actions, 11 SPI snapshots,
+  and successful verification output.
+- Export sample is browser-session.json (captured before the final counter labels).
+- No application error banner during tested flows.
